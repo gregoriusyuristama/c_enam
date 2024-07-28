@@ -16,4 +16,5 @@ extension CEcolors on Colors {
   static const blueCardEndGradient = Color(0xFFD4EFEC);
   static const disabledCardStartGradient = Color(0xFFE5EAF0);
   static const disabledCardEndGradient = Color(0xFFE5EAF0);
+  static const greenChatCard = Color(0xFFD9FCDE);
 }

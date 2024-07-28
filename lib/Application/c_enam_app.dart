@@ -1,4 +1,4 @@
-import 'package:c_enam/Features/Chat/chat_screen.dart';
+import 'package:c_enam/Features/Chat/View/chat_screen.dart';
 import 'package:c_enam/Features/Common/home_page.dart';
 import 'package:c_enam/Features/Food/food_screen.dart';
 import 'package:flutter/material.dart';
