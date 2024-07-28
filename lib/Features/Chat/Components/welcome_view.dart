@@ -23,14 +23,14 @@ class _WelcomeViewState extends State<WelcomeView> {
         Padding(
           padding: const EdgeInsets.only(left: 24),
           child: Text(
-            "Welcome User",
+            "Welcome Kevin ",
             style: CETextStyle.regular18,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 24),
           child: Text(
-            "Let's Find your [Lunch]",
+            "Let's Find your Meals",
             style: CETextStyle.semiBold21,
           ),
         ),

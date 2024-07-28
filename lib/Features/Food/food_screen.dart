@@ -44,7 +44,7 @@ final List<String> titles = [
 ];
 
 class FoodScreen extends StatelessWidget {
-  static const id = "/food";
+  static const id = "/";
   const FoodScreen({super.key});
 
   @override

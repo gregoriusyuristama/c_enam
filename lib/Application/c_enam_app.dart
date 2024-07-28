@@ -15,9 +15,8 @@ class CEnamApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
       ),
-      initialRoute: HomePage.id,
+      initialRoute: FoodScreen.id,
       routes: {
-        HomePage.id: (context) => const HomePage(),
         FoodScreen.id: (context) => const FoodScreen(),
         ChatScreen.id: (context) => ChatScreen(),
       },

@@ -74,11 +74,11 @@ class CETextStyle {
 
   static final textTitleCard = GoogleFonts.inter(
     textStyle: const TextStyle(
-        fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+        fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black),
   );
   static final textSubTitleCard = GoogleFonts.inter(
     textStyle: const TextStyle(
-        fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
+        fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
   );
   static final textInfoCard = GoogleFonts.inter(
     textStyle: const TextStyle(

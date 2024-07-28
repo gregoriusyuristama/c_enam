@@ -10,16 +10,13 @@ class GeminiUtilites {
 
   final String _explainerPrompt = """
 Act like you were integrated to food delivery app, you can access all data that available from data that i passed on. Generate top 3 food that suitable most to the users input in JSON code format with structure:
-And also give the output based on 3 of data that I already passed on.
-1. [Your general response]
-2. [Food Information:
-    1. Image
-    2. Name
-    3. Restaurant Name
-    4. Price (in Indonesia Rupiah (IDR))
-    5. Estimated delivery time (Ceiling value in minutes)
-    6. Restaurant distance (in Kilometer (km))
-    7. Deals]
+And also give the output based on 3 of data that I already passed on. And please don't markdown the json
+1. [response]
+2. [food_information]:
+    1. image_src
+    2. name
+    3. merchant_name
+    4. price (in Indonesia Rupiah (IDR))
 
 
 write all suitable unit. you aren't able to ask additional information after user send the input
@@ -48,7 +45,26 @@ extension GeminiExplainer on GeminiUtilites {
       ])
     ];
 
-    final response = await _modelGemini15pro.generateContent(content);
+    final schema = Schema(SchemaType.object, properties: {
+      'response': Schema(SchemaType.string),
+      'food_information': Schema(SchemaType.array,
+          items: Schema(SchemaType.object, properties: {
+            'image_src': Schema(SchemaType.string),
+            'name': Schema(SchemaType.string),
+            'merchant_name': Schema(SchemaType.string),
+            'price': Schema(SchemaType.string),
+          })),
+    });
+
+    final response =
+        await GeminiUtilites.shared._modelGemini15pro.generateContent(
+      content,
+      generationConfig: GenerationConfig(
+        responseMimeType: "application/json",
+        responseSchema: schema,
+      ),
+    );
+
     return response.text ?? "No Response Provided";
   }
 }
