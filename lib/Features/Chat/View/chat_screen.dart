@@ -9,6 +9,7 @@ import 'package:c_enam/Features/Chat/Controller/merchant_controller.dart';
 import 'package:c_enam/Features/Chat/Model/merchant_model.dart';
 import 'package:c_enam/Features/Chat/Model/message_model.dart';
 import 'package:c_enam/Features/Chat/Model/prompt_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,7 +82,23 @@ class _ChatScreenState extends State<ChatScreen> {
           Flexible(
             child: Consumer<ChatMessageProvider>(
               builder: (context, value, child) => value.messages.isEmpty
-                  ? const WelcomeView()
+                  ? WelcomeView(
+                      callback: (String prompt) async {
+                        messageProvider?.appendMessage(
+                          Message(message: prompt, isSelf: true),
+                        );
+                        isLoading = true;
+                        RespMerchants resp =
+                            await MerchantController.fetchMerchants();
+                        String answer = await GeminiUtilites.shared.askFood(
+                          prompt,
+                          resp.data ?? [],
+                        );
+                        isLoading = false;
+                        messageProvider?.appendMessage(
+                            Message(message: answer, isSelf: false));
+                      },
+                    )
                   : ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.messages.length,
@@ -91,17 +108,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
             ),
           ),
-          //CARD
-          CECardFood(
-            imagePath: ResourcePath.imageBanner1,
-            title: "Sate Padang",
-            subtitle: "Padang Sederhana",
-            time: "14 mins",
-            distance: "1,6 km",
-            price: "25.000",
-          ),
-
-          isLoading ? CircularProgressIndicator.adaptive() : SizedBox(),
+          isLoading
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).padding.bottom),
+                  child: CircularProgressIndicator.adaptive(),
+                )
+              : SizedBox(),
           Container(
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).padding.bottom,
@@ -198,60 +211,64 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget chatContainer(ChatMessageProvider value, int index) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (value.messages[index].isSelf) const Spacer(),
-          if (!value.messages[index].isSelf)
-            ClipOval(
-              child: Container(
-                padding: const EdgeInsets.only(
-                  top: 16,
-                  right: 16,
-                ),
-                width: 20,
-                height: 20,
-                color: CEcolors.green,
-              ),
-            ),
-          Flexible(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 8,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: value.messages[index].isSelf
-                        ? CEcolors.greyCard
-                        : CEcolors.greenChatCard,
-                    borderRadius: value.messages[index].isSelf
-                        ? const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          )
-                        : const BorderRadius.only(
-                            topRight: Radius.circular(12),
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12),
-                          ),
-                  ),
-                  child: Text(
-                    value.messages[index].message,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (value.messages[index].isSelf) const Spacer(),
+              if (!value.messages[index].isSelf)
+                ClipOval(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      right: 16,
+                    ),
+                    width: 20,
+                    height: 20,
+                    color: CEcolors.green,
                   ),
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
+              Flexible(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 8,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: value.messages[index].isSelf
+                            ? CEcolors.greyCard
+                            : CEcolors.greenChatCard,
+                        borderRadius: value.messages[index].isSelf
+                            ? const BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                              )
+                            : const BorderRadius.only(
+                                topRight: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                              ),
+                      ),
+                      child: Text(
+                        value.messages[index].message,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

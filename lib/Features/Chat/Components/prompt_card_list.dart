@@ -7,22 +7,28 @@ import '../Model/prompt_model.dart';
 class PromptCardList extends StatefulWidget {
   final cardItems = [
     PromptModel(
-      title: "Cuisine",
-      subtitle: "What do you want to eat",
+      title: "Health-conscious",
+      subtitle: "be consistent, every step counts",
       cardStartColor: CEcolors.redCardStartGradient,
       cardEndColor: CEcolors.redCardEndGradient,
     ),
     PromptModel(
-      title: "Macronutrient",
-      subtitle: "Focus on protein, carbs, or fat?",
+      title: "Moodbooster",
+      subtitle: "it's your cheat day, u only live once",
       cardStartColor: CEcolors.greenCardStartGradient,
       cardEndColor: CEcolors.greenCardEndGradient,
     ),
     PromptModel(
-      title: "Calories",
-      subtitle: "High Calorie",
+      title: "For-sharing",
+      subtitle: "For large group, the more the merrier",
       cardStartColor: CEcolors.blueCardStartGradient,
       cardEndColor: CEcolors.blueCardEndGradient,
+    ),
+    PromptModel(
+      title: "Explore me",
+      subtitle: "Explore new world, my food my adventure",
+      cardStartColor: CEcolors.redCardStartGradient,
+      cardEndColor: CEcolors.redCardEndGradient,
     ),
   ];
 
@@ -39,7 +45,7 @@ class _PromptCardListState extends State<PromptCardList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 108,
+      height: 120,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.cardItems.length,

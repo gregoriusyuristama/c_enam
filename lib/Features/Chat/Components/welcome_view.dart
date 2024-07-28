@@ -6,7 +6,8 @@ import '../../../Core/Colors/CEColors.dart';
 import '../../../Core/TextStyle/CETextStyle.dart';
 
 class WelcomeView extends StatefulWidget {
-  const WelcomeView({super.key});
+  final Function(String) callback;
+  const WelcomeView({super.key, required this.callback});
 
   @override
   State<WelcomeView> createState() => _WelcomeViewState();
@@ -58,7 +59,13 @@ class _WelcomeViewState extends State<WelcomeView> {
         SizedBox(
           height: 16,
         ),
-        promptText == null ? SizedBox() : SendPromptCard(),
+        promptText == null
+            ? SizedBox()
+            : SendPromptCard(
+                callback: (String prompt) {
+                  widget.callback(prompt);
+                },
+              ),
       ],
     );
   }

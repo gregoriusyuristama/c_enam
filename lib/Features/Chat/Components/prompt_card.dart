@@ -23,7 +23,7 @@ class _PromptCardState extends State<PromptCard> {
   Widget build(BuildContext context) {
     return Container(
       width: 144,
-      height: 108,
+      height: 120,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [widget.cardStartColor, widget.cardEndColor],
