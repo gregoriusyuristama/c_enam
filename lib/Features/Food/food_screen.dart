@@ -1,5 +1,5 @@
 import 'package:c_enam/Core/Constant/resource_path.dart';
-import 'package:c_enam/Features/Chat/chat_screen.dart';
+import 'package:c_enam/Features/Chat/View/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
