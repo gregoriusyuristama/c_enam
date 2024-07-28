@@ -38,7 +38,7 @@ class CECardFood extends StatelessWidget {
               height: 100,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
+                child: Image.network(
                   imagePath,
                   fit: BoxFit.cover,
                 ),
@@ -52,29 +52,11 @@ class CECardFood extends StatelessWidget {
                   title,
                   style: CETextStyle.textTitleCard,
                 ),
-                Text(
-                  subtitle,
-                  style: CETextStyle.textSubTitleCard,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      time,
-                      style: CETextStyle.textInfoCard,
-                    ),
-                    const SizedBox(width: 5),
-                    const Icon(
-                      Icons.circle,
-                      size: 10,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      distance,
-                      style: CETextStyle.textInfoCard,
-                    ),
-                  ],
+                FittedBox(
+                  child: Text(
+                    subtitle,
+                    style: CETextStyle.textSubTitleCard,
+                  ),
                 ),
                 Text(
                   price,

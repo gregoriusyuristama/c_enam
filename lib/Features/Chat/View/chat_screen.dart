@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c_enam/Core/Component/shape/round_container.dart';
 import 'package:c_enam/Core/Constant/resource_path.dart';
 import 'package:c_enam/Core/Utilities/gemini_utilities.dart';
@@ -6,6 +8,7 @@ import 'package:c_enam/Features/Chat/Components/prompt_card_list.dart';
 import 'package:c_enam/Features/Chat/Components/send_prompt_card.dart';
 import 'package:c_enam/Features/Chat/Components/welcome_view.dart';
 import 'package:c_enam/Features/Chat/Controller/merchant_controller.dart';
+import 'package:c_enam/Features/Chat/Model/chat_model.dart';
 import 'package:c_enam/Features/Chat/Model/merchant_model.dart';
 import 'package:c_enam/Features/Chat/Model/message_model.dart';
 import 'package:c_enam/Features/Chat/Model/prompt_model.dart';
@@ -95,8 +98,17 @@ class _ChatScreenState extends State<ChatScreen> {
                           resp.data ?? [],
                         );
                         isLoading = false;
+                        ChatResultGeneration result =
+                            ChatResultGeneration.fromJson(jsonDecode(answer));
+                        isLoading = false;
                         messageProvider?.appendMessage(
-                            Message(message: answer, isSelf: false));
+                          Message(
+                            message: result.response ??
+                                "Here is your food recommendation",
+                            food: result,
+                            isSelf: false,
+                          ),
+                        );
                       },
                     )
                   : ListView.builder(
@@ -182,10 +194,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                   prompt,
                                   resp.data ?? [],
                                 );
+                                ChatResultGeneration result =
+                                    ChatResultGeneration.fromJson(
+                                        jsonDecode(answer));
                                 isLoading = false;
                                 messageProvider?.appendMessage(
                                   Message(
-                                    message: answer,
+                                    message: result.response ??
+                                        "Here is your food recommendation",
+                                    food: result,
                                     isSelf: false,
                                   ),
                                 );
@@ -211,11 +228,11 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget chatContainer(ChatMessageProvider value, int index) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      child: Column(
+        children: [
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (value.messages[index].isSelf) const Spacer(),
@@ -267,8 +284,54 @@ class _ChatScreenState extends State<ChatScreen> {
               )
             ],
           ),
-        ),
-      ],
+          if (!value.messages[index].isSelf &&
+              value.messages[index].food != null)
+            Column(
+              children: value.messages[index].food?.foodInformation?.map((e) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: CECardFood(
+                        imagePath: e.imageSrc ?? "",
+                        title: e.name ?? "",
+                        subtitle: e.merchantName ?? "",
+                        time: "",
+                        distance: "",
+                        price: e.price ?? "",
+                      ),
+                    );
+                  }).toList() ??
+                  [],
+            )
+
+          // SizedBox(
+          //   height: 300,
+          //   child:
+          //   ListView.builder(
+          //     itemCount: value.messages[index].food?.length,
+          //     shrinkWrap: true,
+          //     physics: NeverScrollableScrollPhysics(),
+          //     itemBuilder: (context, idx) {
+          //       final message = value.messages[index];
+          //       return Column(
+          //         children: message.food != null
+          //             ? [
+          //                 CECardFood(
+          //                   imagePath: message.food![0]!,
+          //                   title: message.food![1]!,
+          //                   subtitle: message.food![2]!,
+          //                   time: message.food![3]!,
+          //                   distance: message.food![4]!,
+          //                   price: message.food![5]!,
+          //                 ),
+          //                 const SizedBox(height: 16),
+          //               ]
+          //             : [],
+          //       );
+          //     },
+          //   ),
+          // ),
+        ],
+      ),
     );
   }
 }
