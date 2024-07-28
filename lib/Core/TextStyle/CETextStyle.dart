@@ -71,4 +71,21 @@ class CETextStyle {
     textStyle: const TextStyle(
         fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black),
   );
+
+  static final textTitleCard = GoogleFonts.inter(
+    textStyle: const TextStyle(
+        fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+  );
+  static final textSubTitleCard = GoogleFonts.inter(
+    textStyle: const TextStyle(
+        fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
+  );
+  static final textInfoCard = GoogleFonts.inter(
+    textStyle: const TextStyle(
+        fontSize: 10, fontWeight: FontWeight.w400, color: Colors.black),
+  );
+  static final textPrice = GoogleFonts.inter(
+    textStyle: const TextStyle(
+        fontSize: 20, fontWeight: FontWeight.w800, color: Colors.green),
+  );
 }
