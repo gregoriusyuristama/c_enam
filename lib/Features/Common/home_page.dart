@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               colors: [CEcolors.startGreenGradient, CEcolors.endGreenGradient],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
