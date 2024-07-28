@@ -39,10 +39,10 @@ class _SendPromptCardState extends State<SendPromptCard> {
               )
             : SizedBox(),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: CEcolors.greyCard,
                 borderRadius: BorderRadius.all(
                   Radius.circular(12),
@@ -66,21 +66,21 @@ class _SendPromptCardState extends State<SendPromptCard> {
                               child: tappableChoice(),
                             ),
                           ),
-                          TextSpan(
+                          const TextSpan(
                               text:
                                   " food. Can you give me food recommendation from my preference. "),
                         ],
                         style: CETextStyle.cardTextStyle,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: CEcolors.green,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           side: BorderSide(width: 0),
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
