@@ -1,3 +1,4 @@
+import 'package:c_enam/Core/Component/shape/round_container.dart';
 import 'package:c_enam/Core/Constant/resource_path.dart';
 import 'package:c_enam/Core/Utilities/gemini_utilities.dart';
 import 'package:c_enam/Features/Chat/Components/prompt_card.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../../Core/Colors/CEColors.dart';
 import '../../../Core/TextStyle/CETextStyle.dart';
+import '../Components/card_food.dart';
 import '../Providers/chat_message_provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -89,6 +91,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
             ),
           ),
+          //CARD
+          CECardFood(
+            imagePath: ResourcePath.imageBanner1,
+            title: "Sate Padang",
+            subtitle: "Padang Sederhana",
+            time: "14 mins",
+            distance: "1,6 km",
+            price: "25.000",
+          ),
+
           isLoading ? CircularProgressIndicator.adaptive() : SizedBox(),
           Container(
             padding: EdgeInsets.only(
